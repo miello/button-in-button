@@ -16,7 +16,7 @@
     shift =
       minShift +
       (maxShift - minShift) *
-        BezierEasing(Math.min(1.0, (currentTime - startTime) / 500));
+        BezierEasing(Math.min(1.0, (currentTime - startTime) / 250));
   };
 
   $: currentTime, shiftButton();
@@ -24,7 +24,14 @@
 
 <button
   class="btn"
-  style={`transform: translate(-50%, -50%) translateZ(${shift}px) !important;`}
+  style={`
+    transform: translate(-50%, -50%) translateZ(${shift}px) !important;
+    transform-style: preserve-3d;
+    --webkit-transform: translate(-50%, -50%) translateZ(${shift}px) !important;
+    --moz-transform: translate(-50%, -50%) translateZ(${shift}px) !important;
+    --ms-transform: translate(-50%, -50%) translateZ(${shift}px) !important;
+    --o-transform: translate(-50%, -50%) translateZ(${shift}px) !important;
+    z-index: 99`}
 >
   <slot />
 </button>

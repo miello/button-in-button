@@ -4,21 +4,24 @@
   import type { ButtonProps } from "../../components/Button/types";
 
   const MAX_BUTTON_LIST = 10;
-  const GAP_BETWEEN_BUTTONS = 100;
+  const GAP_BETWEEN_BUTTONS = 75;
 
   let time: number = 0;
 
-  const buttonList: Omit<ButtonProps, "currentTime">[] = [];
+  let buttonList: Omit<ButtonProps, "currentTime">[] = [];
 
   const handleFrame = () => {
     if (time % GAP_BETWEEN_BUTTONS === 0) {
       if (buttonList.length >= MAX_BUTTON_LIST) {
-        buttonList.shift();
+        buttonList.pop();
       }
-      buttonList.push({
-        startTime: time,
-      });
-      console.log(buttonList);
+      buttonList = [
+        {
+          id: Math.random(),
+          startTime: time,
+        },
+        ...buttonList,
+      ];
     }
     time++;
     requestAnimationFrame(handleFrame);
@@ -30,12 +33,26 @@
 </script>
 
 <div class="parent">
-  {#each buttonList as button}
-    <Button startTime={button.startTime} currentTime={time}>Click Me 👆</Button>
+  {#each buttonList as button (button.id)}
+    <Button startTime={button.startTime} currentTime={time}>
+      <a
+        href="https://www.youtube.com/watch?v=PzqQSOaCcnw"
+        target="_blank"
+        referrerpolicy="no-referrer"
+        class="link"
+      >
+        Click Me 👆
+      </a>
+    </Button>
   {/each}
 </div>
 
 <style>
+  .link {
+    text-decoration: none;
+    color: black;
+  }
+
   .parent {
     overflow: hidden;
     perspective: 1000px;
