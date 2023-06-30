@@ -41,7 +41,7 @@
         referrerpolicy="no-referrer"
         class="link"
       >
-        Click Me 👆
+        Click &nbsp; Me 👆
       </a>
     </Button>
   {/each}
